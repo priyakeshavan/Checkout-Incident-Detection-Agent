@@ -44,7 +44,7 @@ E-commerce checkout issues need consistent triage. A simple rules-guided AI work
 | `agent_commands` | Decision log | `command_id`, `action`, `severity`, `reason`, `checkout_step`, `cart_value`, `device`, `baseline_rate`, `timestamp` |
 | `state` | Processing checkpoint | `key`, `value` |
 
-![Input events](screenshots/02-input-events.png)
+![Input events](Screenshots/02-input-events.png)
 ![Baseline metrics](Screenshots/03-baseline-metrics.png)
 
 ## Decision rules
