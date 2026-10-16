@@ -21,7 +21,7 @@ E-commerce checkout issues need consistent triage. A simple rules-guided AI work
 
 ## Workflow architecture
 
-![Complete 11-step Zapier workflow](screenshots/01-workflow-architecture.png)
+![Complete 11-step Zapier workflow](Screenshots/01-workflow-architecture.png)
 
 1. **New Spreadsheet Row** — read a new event from `cart_events`.
 2. **Lookup Spreadsheet Row** — read `last_processed_timestamp` from `state`.
@@ -45,7 +45,7 @@ E-commerce checkout issues need consistent triage. A simple rules-guided AI work
 | `state` | Processing checkpoint | `key`, `value` |
 
 ![Input events](screenshots/02-input-events.png)
-![Baseline metrics](screenshots/03-baseline-metrics.png)
+![Baseline metrics](Screenshots/03-baseline-metrics.png)
 
 ## Decision rules
 
@@ -55,14 +55,14 @@ The AI step was prompted to produce **HIGH / ALERT** when:
 
 The prompt also describes rules for an elevated current failure rate versus baseline and for three or more mobile failures within ten minutes. **Those two aggregate rules were not fully implemented**, because the workflow did not supply a calculated current failure rate or reliable recent-event history. Other events are intended to produce **LOW / LOG**, but the saved evidence demonstrates ALERT cases, not a verified LOG live run.
 
-![AI decision preview for EVT008](screenshots/04-ai-decision.png)
+![AI decision preview for EVT008](Screenshots/04-ai-decision.png)
 
 ## Duplicate check
 
 The Zap looks up `command_id` in `agent_commands` using the incoming event ID. A filter permits processing only if the lookup does not find a match. This is a practical best-effort check, **not an atomic exactly-once guarantee** for concurrent executions.
 
-![Duplicate lookup](screenshots/05-duplicate-lookup.png)
-![Duplicate filter](screenshots/05b-duplicate-filter.png)
+![Duplicate lookup](Screenshots/05-duplicate-lookup.png)
+![Duplicate filter](Screenshots/05b-duplicate-filter.png)
 
 ## Verified results
 
@@ -71,13 +71,13 @@ The Zap looks up `command_id` in `agent_commands` using the incoming event ID. A
 | EVT008 | Shipping, cart value 1,200 | `HIGH` / `ALERT` in test output and command sheet |
 | EVT010 | Payment, baseline rate 0.02 | Live run created `HIGH` / `ALERT` command, sent webhook request, and advanced checkpoint to `2026-10-08 09:40:00` |
 
-![Recorded commands](screenshots/06-agent-commands.png)
+![Recorded commands](Screenshots/06-agent-commands.png)
 
 The following screenshot shows the **outbound payload from Zapier's Step 9 run details**, with the webhook endpoint redacted. It documents the request data; delivery was also observed during the live test.
 
-![Webhook POST request data](screenshots/07-webhook-request.png)
+![Webhook POST request data](Screenshots/07-webhook-request.png)
 
-![State after EVT010](screenshots/08-state-update.png)
+![State after EVT010](Screenshots/08-state-update.png)
 
 ## Known limitations and improvements
 
